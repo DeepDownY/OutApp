@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        Toast.makeText(this,"what the bug is",Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -91,11 +93,12 @@ public class MainActivity extends AppCompatActivity
             send.setClass(MainActivity.this,ListActivity.class);
             send.putExtra("List","See the list");
         } else if (id == R.id.nav_search) {
-            send.setClass(MainActivity.this,ListActivity.class);
+            send.setClass(MainActivity.this,SearchActivity.class);
             send.putExtra("id","Show Search Activity");
 
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_test) {
+            send.setClass(MainActivity.this,TestActivity.class);
+            send.putExtra("id","Show Search Activity");
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

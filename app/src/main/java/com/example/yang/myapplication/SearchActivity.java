@@ -17,7 +17,6 @@ public class SearchActivity extends AppCompatActivity {
 
         String RecString = Rec.getStringExtra("id");
         TextView _tt = (TextView)findViewById(R.id.SearchPage);
-        String temp = "what this bug is";
-        Toast.makeText(getApplicationContext(),temp,Toast.LENGTH_LONG).show();
+        _tt.setText(RecString);
     }
 }
