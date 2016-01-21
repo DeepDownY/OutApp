@@ -91,6 +91,8 @@ public class MainActivity extends AppCompatActivity
             send.setClass(MainActivity.this,ListActivity.class);
             send.putExtra("List","See the list");
         } else if (id == R.id.nav_search) {
+            send.setClass(MainActivity.this,ListActivity.class);
+            send.putExtra("id","Show Search Activity");
 
         } else if (id == R.id.nav_manage) {
 
