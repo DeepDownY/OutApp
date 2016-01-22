@@ -13,7 +13,7 @@
             android:title="Search" />
         <item
             android:id="@+id/nav_test"
-            android:title="Tools" />
+            android:title="Test" />
     </group>
 
     <item android:title="Communicate">
