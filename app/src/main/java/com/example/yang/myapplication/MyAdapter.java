@@ -1,9 +1,16 @@
 package com.example.yang.myapplication;
 
+import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.content.Context;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,8 +50,47 @@ public class MyAdapter extends BaseAdapter {
         return position;
     }
 
+
+    class ViewHolder{
+        public ImageView img = null;
+        public TextView name=null,weight=null,time=null;
+        public ViewHolder(View convertView){
+            img = (ImageView)convertView.findViewById(to[0]);
+            name = (TextView)convertView.findViewById(to[1]);
+            weight= (TextView)convertView.findViewById(to[2]);
+            time = (TextView)convertView.findViewById(to[3]);
+        }
+    }
+    class ImageListener implements View.OnClickListener{
+        private int position;
+
+        public ImageListener(int position){
+            this.position=position;
+        }
+        public void onClick(View v){
+            String str=list.get(position).get(from[1]).toString();
+            Toast.makeText(context,str+" is Clicked" , Toast.LENGTH_LONG).show();
+        }
+    }
+
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        ViewHolder viewHolder=null;
+        if(convertView==null){
+            LayoutInflater inflater = LayoutInflater.from(context);
+            convertView=inflater.inflate(resources,null);
+            viewHolder=new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        }
+        else{
+            viewHolder=(ViewHolder)convertView.getTag();
+        }
+        viewHolder.img.setBackground((Drawable)list.get(position).get(from[0]));
+        viewHolder.name.setText((String) (list.get(position).get(from[1])));
+        viewHolder.weight.setText((String)(list.get(position).get(from[2])));
+        viewHolder.time.setText((String)(list.get(position).get(from[3])));
+        viewHolder.img.setOnClickListener(new ImageListener(position));
+        return convertView;
     }
 }
