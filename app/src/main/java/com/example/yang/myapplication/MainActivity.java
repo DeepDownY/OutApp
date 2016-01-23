@@ -13,10 +13,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    String[] from={"Photo","Name","weight","time"};
+    int[] to={R.id.img,R.id.name,R.id.weight,R.id.time};
+    int[] photoRes={R.drawable.img,R.drawable.img,R.drawable.img,R.drawable.img};
+    String[] strName={"暗夜之殇","街角的幸福","静悄悄","愤怒的小胖"};
+    String[] strWeight={"5000kg","200kg","403kg","4t"};
+    String[] time={"9月30日","10月20日","8月15日","1月1日"};
+    ArrayList<HashMap<String,Object>> list=null;
+    HashMap<String,Object> map=null;
+
+    ListView listView=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,14 +101,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         Intent send = new Intent();
+        if (id == R.id.nav_Index) {
 
-        if (id == R.id.nav_Personal) {
+
+        }else if (id == R.id.nav_Personal) {
             // Handle the camera action
-            send.setClass(MainActivity.this,PerActivity.class);
-            send.putExtra("id","personalId");
+            ChangeToPerson();
         } else if (id == R.id.nav_List) {
-            send.setClass(MainActivity.this,ListActivity.class);
-            send.putExtra("List","See the list");
+            ChangeToList();
         } else if (id == R.id.nav_search) {
             send.setClass(MainActivity.this,SearchActivity.class);
             send.putExtra("id","Show Search Activity");
@@ -106,8 +123,35 @@ public class MainActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        startActivity(send);
+
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    public void ChangeToList(){
+        RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.relativeLayout1);
+        relativeLayout.removeAllViews();
+        listView = new ListView(this);
+        list=new ArrayList<HashMap<String, Object>>();
+
+        for(int i = 0;i<4;i++){
+            map=new HashMap<String,Object>();
+            map.put("Photo",getResources().getDrawable(photoRes[i]));
+            map.put("Name",strName[i]);
+            map.put("weight",strWeight[i]);
+            map.put("time",time[i]);
+            list.add(map);
+        }
+        MyAdapter adapter=new MyAdapter(this,R.layout.item_layout,list,from,to);
+        listView.setAdapter(adapter);
+        relativeLayout.addView(listView);
+    }
+
+    public void ChangeToPerson(){
+        RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.relativeLayout1);
+        relativeLayout.removeAllViews();
+        TextView textView = new TextView(this);
+        textView.setText("test,it");
+        relativeLayout.addView(textView);
+    }
 }
+

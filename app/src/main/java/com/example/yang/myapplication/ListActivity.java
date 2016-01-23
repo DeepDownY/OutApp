@@ -3,7 +3,10 @@ package com.example.yang.myapplication;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +29,8 @@ public class ListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
-        listView = (ListView)findViewById(R.id.Good_list);
+
+        listView = new ListView(this);
         list=new ArrayList<HashMap<String, Object>>();
 
         for(int i = 0;i<4;i++){
@@ -40,5 +43,7 @@ public class ListActivity extends AppCompatActivity {
         }
         MyAdapter adapter=new MyAdapter(this,R.layout.item_layout,list,from,to);
         listView.setAdapter(adapter);
+
+
     }
 }
