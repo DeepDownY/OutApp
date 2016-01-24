@@ -1,5 +1,6 @@
 package com.example.yang.myapplication;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -110,8 +112,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_List) {
             ChangeToList();
         } else if (id == R.id.nav_search) {
-            send.setClass(MainActivity.this,SearchActivity.class);
-            send.putExtra("id","Show Search Activity");
+
 
         } else if (id == R.id.nav_test) {
             send.setClass(MainActivity.this,TestActivity.class);
@@ -141,8 +142,18 @@ public class MainActivity extends AppCompatActivity
             map.put("time",time[i]);
             list.add(map);
         }
-        MyAdapter adapter=new MyAdapter(this,R.layout.item_layout,list,from,to);
+        final MyAdapter adapter=new MyAdapter(this,R.layout.item_layout,list,from,to);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(id<0){
+                    return;
+                }
+                String tem = (String)list.get(position).get("Name");
+                Toast.makeText(MainActivity.this,tem,Toast.LENGTH_SHORT).show();
+            }
+        });
         relativeLayout.addView(listView);
     }
 
