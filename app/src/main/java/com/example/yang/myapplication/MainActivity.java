@@ -1,12 +1,10 @@
 package com.example.yang.myapplication;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,28 +12,39 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+
+import org.json.JSONObject;
+
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    String[] from={"Photo","Name","weight","time"};
-    int[] to={R.id.img,R.id.name,R.id.weight,R.id.time};
-    int[] photoRes={R.drawable.img,R.drawable.img,R.drawable.img,R.drawable.img};
-    String[] strName={"暗夜之殇","街角的幸福","静悄悄","愤怒的小胖"};
-    String[] strWeight={"5000kg","200kg","403kg","4t"};
-    String[] time={"9月30日","10月20日","8月15日","1月1日"};
-    ArrayList<HashMap<String,Object>> list=null;
-    HashMap<String,Object> map=null;
+    String[] from = {"Photo", "Name", "weight", "time"};
+    int[] to = {R.id.img, R.id.name, R.id.weight, R.id.time};
+    int[] photoRes = {R.drawable.img, R.drawable.img, R.drawable.img, R.drawable.img};
+    String[] strName = {"暗夜之殇", "街角的幸福", "静悄悄", "愤怒的小胖"};
+    String[] strWeight = {"5000kg", "200kg", "403kg", "4t"};
+    String[] time = {"9月30日", "10月20日", "8月15日", "1月1日"};
+    ArrayList<HashMap<String, Object>> list = null;
+    HashMap<String, Object> map = null;
 
-    ListView listView=null;
+    ListView listView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +70,24 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        Toast.makeText(this,"what the bug is",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "what the bug is", Toast.LENGTH_LONG).show();
+        volley_Get();
+    }
+
+    private void volley_Get() {
+        String url = "www.baidu.com";
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET,url,null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        });
     }
 
     @Override
@@ -104,9 +130,9 @@ public class MainActivity extends AppCompatActivity
 
         Intent send = new Intent();
         if (id == R.id.nav_Index) {
+            ChangeToIndex();
 
-
-        }else if (id == R.id.nav_Personal) {
+        } else if (id == R.id.nav_Personal) {
             // Handle the camera action
             ChangeToPerson();
         } else if (id == R.id.nav_List) {
@@ -115,8 +141,8 @@ public class MainActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_test) {
-            send.setClass(MainActivity.this,TestActivity.class);
-            send.putExtra("id","Show Search Activity");
+            send.setClass(MainActivity.this, TestActivity.class);
+            send.putExtra("id", "Show Search Activity");
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -128,41 +154,71 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    public void ChangeToList(){
+
+    private void ChangeToIndex() {
         RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.relativeLayout1);
         relativeLayout.removeAllViews();
-        listView = new ListView(this);
-        list=new ArrayList<HashMap<String, Object>>();
+        TextView _tt = new TextView(this);
+        _tt.setText("Index");
+        relativeLayout.addView(_tt);
+    }
 
-        for(int i = 0;i<4;i++){
-            map=new HashMap<String,Object>();
-            map.put("Photo",getResources().getDrawable(photoRes[i]));
-            map.put("Name",strName[i]);
-            map.put("weight",strWeight[i]);
-            map.put("time",time[i]);
+    public void ChangeToList() {
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout1);
+        relativeLayout.removeAllViews();
+        listView = new ListView(this);
+        list = new ArrayList<HashMap<String, Object>>();
+
+        for (int i = 0; i < 4; i++) {
+            map = new HashMap<String, Object>();
+            map.put("Photo", getResources().getDrawable(photoRes[i]));
+            map.put("Name", strName[i]);
+            map.put("weight", strWeight[i]);
+            map.put("time", time[i]);
             list.add(map);
         }
-        final MyAdapter adapter=new MyAdapter(this,R.layout.item_layout,list,from,to);
+        for (int i = 0; i < 4; i++) {
+            map = new HashMap<String, Object>();
+            map.put("Photo", getResources().getDrawable(photoRes[i]));
+            map.put("Name", strName[i]);
+            map.put("weight", strWeight[i]);
+            map.put("time", time[i]);
+            list.add(map);
+        }
+        for (int i = 0; i < 4; i++) {
+            map = new HashMap<String, Object>();
+            map.put("Photo", getResources().getDrawable(photoRes[i]));
+            map.put("Name", strName[i]);
+            map.put("weight", strWeight[i]);
+            map.put("time", time[i]);
+            list.add(map);
+        }
+        final MyAdapter adapter = new MyAdapter(this, R.layout.item_layout, list, from, to);
         listView.setAdapter(adapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(id<0){
+                if (id < 0) {
                     return;
                 }
-                String tem = (String)list.get(position).get("Name");
-                Toast.makeText(MainActivity.this,tem,Toast.LENGTH_SHORT).show();
+                String tem = (String) list.get(position).get("Name");
+                Toast.makeText(MainActivity.this, tem, Toast.LENGTH_SHORT).show();
             }
         });
         relativeLayout.addView(listView);
+
+
     }
 
-    public void ChangeToPerson(){
-        RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.relativeLayout1);
+    public void ChangeToPerson() {
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout1);
         relativeLayout.removeAllViews();
         TextView textView = new TextView(this);
         textView.setText("test,it");
         relativeLayout.addView(textView);
     }
+
+
 }
 

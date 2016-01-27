@@ -1,16 +1,21 @@
 package com.example.yang.myapplication;
 
-import android.content.DialogInterface;
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.content.Context;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +29,9 @@ public class MyAdapter extends BaseAdapter {
     private ArrayList<HashMap<String,Object>> list=null;
     private String[] from;
     private int[] to;
+    private String url;
+    private ImageLoader loader;
+
 
     public MyAdapter(Context context, int resources,
                      ArrayList<HashMap<String, Object>> list, String[] from, int[] to) {
@@ -33,6 +41,9 @@ public class MyAdapter extends BaseAdapter {
         this.list = list;
         this.from = from;
         this.to = to;
+        url = "http://7vijy3.com1.z0.glb.clouddn.com/u%3D510514586%2C3474110816%26fm%3D11%26gp%3D0.jpg";
+        loader = new ImageLoader(MyAppliction.getHttpQueues()
+                ,new BitmapCache());
     }
 
     @Override
@@ -42,7 +53,7 @@ public class MyAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return list.get(position);
     }
 
     @Override
@@ -52,27 +63,40 @@ public class MyAdapter extends BaseAdapter {
 
 
     class ViewHolder{
-        public ImageView img = null;
+        public NetworkImageView img = null;
         public TextView name=null,weight=null,time=null;
         public ViewHolder(View convertView){
-            img = (ImageView)convertView.findViewById(to[0]);
+            img = (NetworkImageView)convertView.findViewById(to[0]);
             name = (TextView)convertView.findViewById(to[1]);
             weight= (TextView)convertView.findViewById(to[2]);
             time = (TextView)convertView.findViewById(to[3]);
         }
     }
-    class ImageListener implements View.OnClickListener{
+    class ImageListener implements ImageLoader.ImageListener{
+
+
+        @Override
+        public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
+        }
+    }
+
+    class ViewListener implements View.OnClickListener{
         private int position;
 
-        public ImageListener(int position){
-            this.position=position;
+        public ViewListener(int position){
+            this.position = position;
         }
         public void onClick(View v){
             String str=list.get(position).get(from[1]).toString();
             Toast.makeText(context,str+" is Clicked" , Toast.LENGTH_LONG).show();
         }
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -86,11 +110,16 @@ public class MyAdapter extends BaseAdapter {
         else{
             viewHolder=(ViewHolder)convertView.getTag();
         }
-        viewHolder.img.setBackground((Drawable)list.get(position).get(from[0]));
+        viewHolder.img.setImageUrl(url,loader);
+        viewHolder.img.setErrorImageResId(R.drawable.ic_menu_camera);
+        viewHolder.img.setDefaultImageResId(R.drawable.ic_menu_gallery);
+
         viewHolder.name.setText((String) (list.get(position).get(from[1])));
         viewHolder.weight.setText((String)(list.get(position).get(from[2])));
         viewHolder.time.setText((String)(list.get(position).get(from[3])));
-        viewHolder.img.setOnClickListener(new ImageListener(position));
+
+        convertView.setOnClickListener(new ViewListener(position));
         return convertView;
     }
+
 }

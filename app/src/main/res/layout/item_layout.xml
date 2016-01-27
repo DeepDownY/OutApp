@@ -4,19 +4,24 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_gravity="center_vertical"
-    android:background="#efefef">
-    <ImageView
+    android:paddingLeft="15dp"
+    android:paddingBottom="12dp"
+    android:paddingTop="12dp"
+    >
+    <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/img"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
-        android:padding="5dp"
+        android:layout_marginRight="5dp"
+
+
         />
 
     <RelativeLayout
-        android:id="@+id/relativeLayout1"
+        android:id="@+id/relativeLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -29,8 +34,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:text="TextView"
-
-            android:textSize="18sp"/>
+            android:textColor="#030303"
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/weight"
@@ -49,10 +54,10 @@
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/relativeLayout1"
+        android:layout_alignTop="@+id/relativeLayout2"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:text="TextView"
-
+        android:textColor="#030303"
         android:textSize="15sp"/>
 </RelativeLayout>
