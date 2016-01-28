@@ -29,8 +29,8 @@ public class MyAdapter extends BaseAdapter {
     private ArrayList<HashMap<String,Object>> list=null;
     private String[] from;
     private int[] to;
-    private String url;
     private ImageLoader loader;
+    String url = "http://7vijy3.com1.z0.glb.clouddn.com/u%3D510514586%2C3474110816%26fm%3D11%26gp%3D0.jpg";
 
 
     public MyAdapter(Context context, int resources,
@@ -41,7 +41,7 @@ public class MyAdapter extends BaseAdapter {
         this.list = list;
         this.from = from;
         this.to = to;
-        url = "http://7vijy3.com1.z0.glb.clouddn.com/u%3D510514586%2C3474110816%26fm%3D11%26gp%3D0.jpg";
+
         loader = new ImageLoader(MyAppliction.getHttpQueues()
                 ,new BitmapCache());
     }
@@ -108,15 +108,15 @@ public class MyAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         }
         else{
-            viewHolder=(ViewHolder)convertView.getTag();
+            viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.img.setImageUrl(url,loader);
+        viewHolder.img.setImageUrl(String.valueOf(list.get(position).get(from[0])),loader);
         viewHolder.img.setErrorImageResId(R.drawable.ic_menu_camera);
         viewHolder.img.setDefaultImageResId(R.drawable.ic_menu_gallery);
 
         viewHolder.name.setText((String) (list.get(position).get(from[1])));
         viewHolder.weight.setText((String)(list.get(position).get(from[2])));
-        viewHolder.time.setText((String)(list.get(position).get(from[3])));
+
 
         convertView.setOnClickListener(new ViewListener(position));
         return convertView;

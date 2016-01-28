@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,7 +38,10 @@ public class MainActivity extends AppCompatActivity
 
     String[] from = {"Photo", "Name", "weight", "time"};
     int[] to = {R.id.img, R.id.name, R.id.weight, R.id.time};
-    int[] photoRes = {R.drawable.img, R.drawable.img, R.drawable.img, R.drawable.img};
+    String[] photoRes = {"http://www.ttoou.com/qqtouxiang/allimg/131007/co13100F93S3-4.jpg",
+            "http://img1.touxiang.cn/uploads/20120825/25-020324_39.jpg",
+            "http://bbs.51job.com/image.php?uid=UWNXaFVsADdTNQczUWA=",
+            "http://assets0.tianmaying.com/img/students/3.jpg"};
     String[] strName = {"暗夜之殇", "街角的幸福", "静悄悄", "愤怒的小胖"};
     String[] strWeight = {"5000kg", "200kg", "403kg", "4t"};
     String[] time = {"9月30日", "10月20日", "8月15日", "1月1日"};
@@ -71,7 +75,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         Toast.makeText(this, "what the bug is", Toast.LENGTH_LONG).show();
-        volley_Get();
+
     }
 
     private void volley_Get() {
@@ -171,7 +175,7 @@ public class MainActivity extends AppCompatActivity
 
         for (int i = 0; i < 4; i++) {
             map = new HashMap<String, Object>();
-            map.put("Photo", getResources().getDrawable(photoRes[i]));
+            map.put("Photo", photoRes[i]);
             map.put("Name", strName[i]);
             map.put("weight", strWeight[i]);
             map.put("time", time[i]);
@@ -179,7 +183,7 @@ public class MainActivity extends AppCompatActivity
         }
         for (int i = 0; i < 4; i++) {
             map = new HashMap<String, Object>();
-            map.put("Photo", getResources().getDrawable(photoRes[i]));
+            map.put("Photo", photoRes[i]);
             map.put("Name", strName[i]);
             map.put("weight", strWeight[i]);
             map.put("time", time[i]);
@@ -187,7 +191,7 @@ public class MainActivity extends AppCompatActivity
         }
         for (int i = 0; i < 4; i++) {
             map = new HashMap<String, Object>();
-            map.put("Photo", getResources().getDrawable(photoRes[i]));
+            map.put("Photo", photoRes[i]);
             map.put("Name", strName[i]);
             map.put("weight", strWeight[i]);
             map.put("time", time[i]);
@@ -214,9 +218,37 @@ public class MainActivity extends AppCompatActivity
     public void ChangeToPerson() {
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout1);
         relativeLayout.removeAllViews();
-        TextView textView = new TextView(this);
-        textView.setText("test,it");
-        relativeLayout.addView(textView);
+        listView = new ListView(this);
+        list = new ArrayList<HashMap<String, Object>>();
+
+        for (int i = 0; i < 4; i++) {
+            map = new HashMap<String, Object>();
+            map.put("Photo", photoRes[i]);
+            map.put("Name", strName[i]);
+            map.put("weight", strWeight[i]);
+            map.put("time", time[i]);
+            list.add(map);
+        }
+        for (int i = 0; i < 4; i++) {
+            map = new HashMap<String, Object>();
+            map.put("Photo", photoRes[i]);
+            map.put("Name", strName[i]);
+            map.put("weight", strWeight[i]);
+            map.put("time", time[i]);
+            list.add(map);
+        }
+        for (int i = 0; i < 4; i++) {
+            map = new HashMap<String, Object>();
+            map.put("Photo", photoRes[i]);
+            map.put("Name", strName[i]);
+            map.put("weight", strWeight[i]);
+            map.put("time", time[i]);
+            list.add(map);
+        }
+        RecyclerView recyclerView = new RecyclerView(this);
+        MyRecAdp myRecAdp = new MyRecAdp(this,list,R.layout.item_layout,from,to);
+        recyclerView.setAdapter(myRecAdp);
+        relativeLayout.addView(recyclerView);
     }
 
 
