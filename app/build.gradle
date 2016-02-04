@@ -26,4 +26,5 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile project(':volly-1.0.11')
+    compile 'com.demievil.library:refreshlayout:1.0.0@aar'
 }

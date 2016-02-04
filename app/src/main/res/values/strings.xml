@@ -7,4 +7,8 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_peractivity">peractivity</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="action_staggered">StaggeredGridView</string>
+    <string name="action_hor_grabview">HorizontalGradView</string>
+    <string name="action_gribview">GradView</string>
+    <string name="action_listView">ListView</string>
 </resources>

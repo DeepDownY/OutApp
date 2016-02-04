@@ -27,13 +27,14 @@ public class BitmapCache implements ImageLoader.ImageCache {
     }
     @Override
     public Bitmap getBitmap(String s) {
-        Log.i(TAG, "get cache " + s);
+        Log.i(TAG,s);
         return cache.get(s);
     }
 
     @Override
     public void putBitmap(String s, Bitmap bitmap) {
-        Log.i(TAG, "get cache: " + s);
+        Log.i(TAG,s);
+
         if (bitmap != null) {
             cache.put(s, bitmap);
         }

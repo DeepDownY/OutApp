@@ -72,19 +72,7 @@ public class MyAdapter extends BaseAdapter {
             time = (TextView)convertView.findViewById(to[3]);
         }
     }
-    class ImageListener implements ImageLoader.ImageListener{
 
-
-        @Override
-        public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
-
-        }
-
-        @Override
-        public void onErrorResponse(VolleyError volleyError) {
-
-        }
-    }
 
     class ViewListener implements View.OnClickListener{
         private int position;
@@ -116,9 +104,11 @@ public class MyAdapter extends BaseAdapter {
 
         viewHolder.name.setText((String) (list.get(position).get(from[1])));
         viewHolder.weight.setText((String)(list.get(position).get(from[2])));
+        viewHolder.time.setText((String)(list.get(position).get(from[3])));
 
 
         convertView.setOnClickListener(new ViewListener(position));
+
         return convertView;
     }
 

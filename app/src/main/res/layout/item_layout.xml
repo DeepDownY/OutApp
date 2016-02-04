@@ -5,6 +5,7 @@
     android:orientation="horizontal"
     android:layout_gravity="center_vertical"
     android:paddingLeft="15dp"
+    android:layout_margin="3dp"
     android:paddingBottom="12dp"
     android:paddingTop="12dp"
     >
